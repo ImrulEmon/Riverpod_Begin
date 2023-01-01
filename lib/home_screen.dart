@@ -2,23 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_begin/main.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
+  void onSubmit(WidgetRef ref, String value) {
+    ref.read(nameProvider.notifier).update((state) => value);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final name = ref.watch(nameProvider) ?? '';
     return Scaffold(
-      appBar: AppBar(),
-      body: Consumer(builder: (context, ref, child) {
-        final name = ref.watch(nameProvider);
-        return Column(
-          children: [
-            Center(
-              child: Text(name),
-            )
-          ],
-        );
-      }),
+      appBar: AppBar(
+        title: Text(name),
+      ),
+      body: Column(
+        children: [
+          TextField(
+            onSubmitted: (value) => onSubmit(ref, value),
+          ),
+          Center(
+            child: Text(name),
+          )
+        ],
+      ),
     );
   }
 }

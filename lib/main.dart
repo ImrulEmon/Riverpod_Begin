@@ -5,9 +5,11 @@ import 'package:riverpod_begin/home_screen.dart';
 //Providers
 // Provider
 
-final nameProvider = Provider<String>((ref) {
-  return 'Imrul Emon-Consumer Builder';
-});
+// final nameProvider = Provider<String>((ref) {
+//   return 'Imrul Emon-Consumer Builder';
+// });
+
+final nameProvider = StateProvider<String?>((ref) => null);
 
 void main() {
   runApp(const ProviderScope(
