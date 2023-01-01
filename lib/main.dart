@@ -6,7 +6,7 @@ import 'package:riverpod_begin/home_screen.dart';
 // Provider
 
 final nameProvider = Provider<String>((ref) {
-  return 'Imrul Emon';
+  return 'Imrul Emon-Consumer Builder';
 });
 
 void main() {

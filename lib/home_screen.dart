@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_begin/main.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(nameProvider);
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          Center(
-            child: Text(name),
-          )
-        ],
-      ),
+      body: Consumer(builder: (context, ref, child) {
+        final name = ref.watch(nameProvider);
+        return Column(
+          children: [
+            Center(
+              child: Text(name),
+            )
+          ],
+        );
+      }),
     );
   }
 }
