@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_begin/home_screen.dart';
+import 'package:riverpod_begin/user.dart';
 
 //Providers
 // Provider
@@ -9,7 +11,24 @@ import 'package:riverpod_begin/home_screen.dart';
 //   return 'Imrul Emon-Consumer Builder';
 // });
 
-final nameProvider = StateProvider<String?>((ref) => null);
+// final nameProvider = StateProvider<String?>((ref) => null);
+
+// final userProvider = StateNotifierProvider<UserNotifier, User>(
+//   (ref) => UserNotifier(
+//     User(
+//       name: '',
+//       age: 0,
+//     ),
+//   ),
+// );
+
+final fatchUserProvider = FutureProvider(
+  (ref) {
+    // return UserRepository().fetchUserData();
+    final userRepository = ref.watch(userRepositoryProvider);
+    return userRepository.fetchUserData();
+  },
+);
 
 void main() {
   runApp(const ProviderScope(
