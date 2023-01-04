@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_begin/home_screen.dart';
+import 'package:riverpod_begin/logger_riverpod.dart';
 import 'package:riverpod_begin/user.dart';
 
 //Providers
@@ -22,16 +23,21 @@ import 'package:riverpod_begin/user.dart';
 //   ),
 // );
 
-final fatchUserProvider = FutureProvider(
-  (ref) {
+final fatchUserProvider = FutureProvider.family.autoDispose(
+  (ref, String input) {
     // return UserRepository().fetchUserData();
     final userRepository = ref.watch(userRepositoryProvider);
-    return userRepository.fetchUserData();
+    return userRepository.fetchUserData(input);
   },
 );
 
+final streamProvider = StreamProvider(((ref) async* {
+  yield [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+}));
+
 void main() {
-  runApp(const ProviderScope(
+  runApp(ProviderScope(
+    observers: [LoggerRiverpod()],
     child: MyApp(),
   ));
 }
@@ -56,7 +62,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const MyHomePage(),
     );
   }
 }
